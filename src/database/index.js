@@ -2,7 +2,6 @@ import "dotenv/config";
 import config from "./db.config.js";
 import { Sequelize } from "sequelize"
 
-import CashControls from "../modules/cash_control/cashControl.model.js";
 import Users from "../modules/users/user.model.js";
 
 const sequelize = new Sequelize(process.env.DB_CONNECTION_URI, config.development);
@@ -10,7 +9,6 @@ const sequelize = new Sequelize(process.env.DB_CONNECTION_URI, config.developmen
 const db = {}
 
 const models = [
-    CashControls,
     Users
 ]
 

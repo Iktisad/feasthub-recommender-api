@@ -43,7 +43,7 @@ export class GenericRepository {
     findById = async (id) => {
         const result = await this.model.findOne(
             {
-                where: { _id: id },
+                where: { id },
             });
         if(result) {
             return result.get({ plain: true })
@@ -85,7 +85,7 @@ export class GenericRepository {
 
     findByIdAndUpdate = async ({id, payload}) => {
         const result = await this.model.update(payload, {
-            where: { _id: id }
+            where: { id }
         });
         if(!result.length || result[0] !== 1) {
             return null
