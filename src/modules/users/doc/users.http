@@ -1,0 +1,73 @@
+@token = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzQ5MDIxNTgsInN1YiI6MTY5ODYxNTE2NCwiZmlyc3RfbmFtZSI6IlRvIHNlZGZzIiwibGFzdF9uYW1lIjoiVG8gc2VkZnMiLCJlbWFpbCI6ImFvLmRvZXJlckBnbWFpbC5jb20iLCJ1c2VyX3R5cGUiOiJlbXBsb3llZSIsImV4cCI6MzM0OTgwNDM3Nn0.LGWRJ6lJQ4dgcOtdWIKwlOprvpTmBnGuzkkOaKpDsB6EEAWtCwXSF5OHv2B54sWTGbdLU-eyOtTgwpzgmwEgjGozb2gxjiBnjGtWyW9dtkiMzhxiRuhD5_WBPJ5oTWgJWPdCmcbNEpZjNHU1HHnl6Arl3dSzaELChvwMysR1DXrCJ_azBISzprgDF6Qa0DFKOLF0K_ldtN2l9GVa8yh1eMky_adyYP8lXoJz421_V3jZPYkl50IalPhuLtC-bymhaezeQqiMDs0f1-mgFx-BsZMcQEgOPfPJHOWkSXv5_JBFUXCxCs97rsk-XwH0fg53C7lyJVznkTxgHV6ALaWQNpzMAmYr8iCGF__yc9V-kzfzM0Y0qMHWGgXiIU2PzNtroIIRzgnEAXHbRVajhc1WReNN8iqPJkNvGGkee-UwikRqMe0HXmowrvXqz61RP6adpn1EED9_PFPjupDaGzYkPnOYO8ZGNz3M1l49H2MyHhO9LXCN0rXc4OdiOCJoPYgTe6A6PKoTvUmLH3AP79uUYw9OkP5LycRZ_Y3VesbM8zA8xwNfle38yAHemnqs15V8jq_UC3SxLhAmc1VMANHr9vtKpo90S29crIQtPCJE0P-PHNEDiDfRXhi6LzAhHkosqg5aKiv2Xy8NI-extjp63RuI0wj3Cg1w3yrKo3XdvNw
+@api = http://localhost:8000/api
+
+### register a new user
+POST {{api}}/users/signup
+Content-Type: application/json
+
+{
+    "first_name": "To sedfs",
+    "last_name": "To sedfs",
+    "email": "ao.doerer@gmail.com",
+    "password":"Denis@600",
+    "phone_number":"01342505250"
+}
+
+### login a user
+POST {{api}}/users/login
+Content-Type: application/json
+
+{
+    "email":"ao.doerer@gmail.com",
+    "password":"Denis@600"
+}
+
+
+### return all the users with default limit of 10
+GET {{api}}/users
+Authorization: Bearer {{ token }}
+
+#####
+# provide page and limit to get the users in the page or default page is 1 and limit is 10
+GET {{api}}/users?page=1&limit=1
+Authorization: Bearer {{ token }}
+
+
+### if q is provided then it will return the users with the name containing the q || the email containing the q || the phone number containing the q
+GET {{api}}/users?q=To s
+Authorization: Bearer {{ token }}
+
+### filter by date
+GET {{api}}/users?filter[startDate]=2020-01-01&filter[endDate]=2022-04-31
+Authorization: Bearer {{ token }}
+
+### search by id
+GET {{api}}/users/1028044654
+Authorization: Bearer {{ token }}
+
+
+###
+PUT {{api}}/users/1028044654
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+    "phone_number": 7878787,
+    "designetion": "Crew"
+}
+
+### 
+PATCH {{api}}/users/1028044654
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+    "oldPassword":"Denis@600",
+    "newPassword": "Denis@700",
+    "email":"ao.doerer@gmail.com"
+}
+
+
+###
+DELETE {{api}}/users/6
+Authorization: Bearer {{ token }}
