@@ -7,6 +7,6 @@ const models = glob.sync(modelsPath);
 module.exports = {
     'config': path.resolve('./src/database/db.config.js'),
     'models-path': models,
-    // 'seeders-path': path.resolve('./src/config/database/seeders'),
+    'seeders-path': path.resolve('./seeds'),
     'migrations-path': path.resolve('./migrations'),
 };

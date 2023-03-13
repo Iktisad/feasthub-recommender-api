@@ -6,8 +6,7 @@ POST {{api}}/users/signup
 Content-Type: application/json
 
 {
-    "first_name": "To sedfs",
-    "last_name": "To sedfs",
+    "username": "sedfs",
     "email": "ao.doerer@gmail.com",
     "password":"Denis@600",
     "phone_number":"01342505250"

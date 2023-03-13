@@ -10,8 +10,8 @@ import { signJWT } from "../../../helpers/signJwt.helper.js"
 
 export default (repository) => {
     //to check for duplicate emails
-    const checkDuplication = async ({ email }) => {
-        const user = await repository.find({ query: { email } });
+    const checkDuplication = async (filter) => {
+        const user = await repository.find({ query: filter });
         if (user.length > 0) {
             return true;
         }
@@ -21,12 +21,25 @@ export default (repository) => {
     //createa new user during user signup
     const createUser = async ({ body }) => {
         // console.log(body);
-        const duplicate = await checkDuplication(body);
-        if (duplicate) throw ConflictException("Mail Already Exists.");
+        const duplicateEmail = await checkDuplication({
+            email: body.email
+        });
+        const duplicateUsername = await checkDuplication({
+            username: body.username
+        });
+        if (duplicateEmail) throw ConflictException("Mail Already Exists.");
+        if (duplicateUsername) throw ConflictException("Username already in use.");
 
         const { password } = body;
         const hash = await argon2.hash(password); //generate hash
         body.password = hash;
+
+        // const lastUser = await repository.findOne({
+        //     sort: {
+        //         createdAt: "DESC"
+        //     }
+        // })
+        // console.log("🚀 ~ file: auth.services.js:42 ~ createUser ~ lastUser:", lastUser)
 
         await repository.create(body);
         return true;
@@ -34,11 +47,16 @@ export default (repository) => {
 
     //authenticate user
     const authenticate = async ({ body }) => {
-        const { email, password } = body;
-        if (!email || !password)
+        const { idenfitier, password } = body;
+
+        if (!idenfitier || !password)
             throw UnauthorizedException("Invalid Credentials");
 
-        const user = await repository.findOne({ query: { email } });
+        const email = idenfitier.includes("@") ? idenfitier : null;
+
+        const query = email ? { email } : { username: idenfitier };
+        
+        const user = await repository.findOne({ query });
         if (!user) throw UnauthorizedException("Invalid Email.");
 
         const passwordMatch = await argon2.verify(user.password, password);

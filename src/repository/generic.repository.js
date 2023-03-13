@@ -27,12 +27,12 @@ export class GenericRepository {
         return [] 
     };
 
-    findOne = async ({query = {}, attributes,  sort = { createdAt: 'ASC' }}) => {
+    findOne = async ({query = {}, attributes,  sort}) => {
         // const order = sort.Object.entries(sort).flat()
         const result = await this.model.findOne({
             where: query,
             attributes,
-            // order
+            order: sort
         });
         if(result) {
             return result.get({ plain: true })
