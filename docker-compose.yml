@@ -1,14 +1,14 @@
 version: "3"
 services:
     pg_master:
-        build: ./docker-db/master
+        build: ./db/master
         volumes:
             - db_data:/var/lib/postgresql/data
         environment:
-            - POSTGRES_USER=demo
+            - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=00
             - POSTGRES_DB=dinein-recommender
-            - PG_REP_USER=rep_db
+            - PG_REP_USER=rep_postgres
             - PG_REP_PASSWORD=00
         ports:
             - "5432:5432"
@@ -17,16 +17,18 @@ services:
                 aliases:
                     - db_cluster
     pg_slave:
-        build: ./docker-db/slave
+        build: ./db/slave
         environment:
-            - POSTGRES_USER=demo
+            - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=00
             - POSTGRES_DB=dinein-recommender
-            - PG_REP_USER=rep_db
+            - PG_REP_USER=rep_postgres
             - PG_REP_PASSWORD=00
             - PG_MASTER_HOST=pg_master
         ports:
             - "5433:5432"
+        depends_on:
+            - pg_master
         networks:
             default:
                 aliases:

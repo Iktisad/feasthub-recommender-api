@@ -10,4 +10,4 @@ export const userGetters = async (id) => {
         }
     });
     return user && user.dataValues ? user.dataValues : null;
-}
+} // dssfdf
