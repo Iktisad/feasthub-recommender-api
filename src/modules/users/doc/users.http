@@ -6,10 +6,10 @@ POST {{api}}/users/signup
 Content-Type: application/json
 
 {
-    "username": "sedfs",
-    "email": "ao.doerer@gmail.com",
+    "username": "sertdfs",
+    "email": "ao.doereer@gmail.com",
     "password":"Denis@600",
-    "phone_number":"01342505250"
+    "phone_number":"01242505250"
 }
 
 ### login a user

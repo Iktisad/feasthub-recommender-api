@@ -1,10 +1,14 @@
 # APP
 
-start db server
+First, build the docker image
 
 -   docker volume create db_data
 -   docker network create db_cluster
 -   docker-compose up --build
+
+start db server
+
+-   docker-compose up
 
 start api server
 
@@ -19,14 +23,16 @@ api:
 adminer: http://localhost:8888
 
 master_db:
-server: pg_master
-username: postgres
-password: 00
-db: dinein-recommender
+
+-   server: pg_master
+-   username: postgres
+-   password: 00
+-   db: dinein-recommender
 
 replica_db:
-server: pg_slave
-username: postgres
-password: 00
-db: dinein-recommender
+
+-   server: pg_slave:5433
+-   username: postgres
+-   password: 00
+-   db: dinein-recommender
 
