@@ -27,12 +27,10 @@ master_db:
 -   server: pg_master
 -   username: postgres
 -   password: 00
--   db: dinein-recommender
 
 replica_db:
 
 -   server: pg_slave:5433
 -   username: postgres
 -   password: 00
--   db: dinein-recommender
 
