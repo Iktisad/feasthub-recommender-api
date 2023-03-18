@@ -34,14 +34,18 @@ export default (repository) => {
         const hash = await argon2.hash(password); //generate hash
         body.password = hash;
 
-        // const lastUser = await repository.findOne({
-        //     sort: {
-        //         createdAt: "DESC"
-        //     }
-        // })
-        // console.log("🚀 ~ file: auth.services.js:42 ~ createUser ~ lastUser:", lastUser)
+        const lastUser = await repository.findOne({
+            sort: [ [ 'id', 'DESC' ] ]
+        })
+        console.log("🚀 ~ file: auth.services.js:42 ~ createUser ~ lastUser:", lastUser)
 
-        await repository.create(body);
+        const lastUserID = lastUser.userID.split('U')[1]
+        const newUserID = parseInt(lastUserID) + 1
+        
+        await repository.create({
+            userID: `U${newUserID}`,
+            ...body
+        });
         return true;
     };
 
