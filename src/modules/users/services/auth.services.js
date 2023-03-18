@@ -54,18 +54,18 @@ export default (repository) => {
         const { idenfitier, password } = body;
 
         if (!idenfitier || !password)
-            throw UnauthorizedException("Invalid Credentials");
+            throw UnauthorizedException("Credentials can't be empty.");
 
         const email = idenfitier.includes("@") ? idenfitier : null;
 
         const query = email ? { email } : { username: idenfitier };
         
         const user = await repository.findOne({ query });
-        if (!user) throw UnauthorizedException("Invalid Email.");
+        if (!user) throw UnauthorizedException("Invalid Credentials.");
 
         const passwordMatch = await argon2.verify(user.password, password);
 
-        if (!passwordMatch) throw UnauthorizedException("Invalid Password.");
+        if (!passwordMatch) throw UnauthorizedException("Invalid Credentials.");
 
         const token = signJWT(
             {
