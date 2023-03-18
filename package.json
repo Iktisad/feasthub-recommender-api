@@ -6,8 +6,10 @@
     "scripts": {
         "start": "npx sequelize-cli db:migrate && node server.js",
         "dev": "npx sequelize-cli db:migrate && nodemon server.js",
+        "seed-migrate": "npx sequelize-cli db:migrate --to ./db/seedsMigrations/20221108222312-add-sequence-user-table.cjs && npx sequelize-cli db:migrate --to ./db/seedsMigrations/20221108222421-add-sequence-cusine-table.cjs && npx sequelize-cli db:migrate --to ./db/seedsMigrations/20221108222459-add-sequence-uservisit-table.cjs",
         "migrate": "npx sequelize-cli db:migrate",
-        "down": "npx sequelize-cli db:migrate:undo"
+        "down": "npx sequelize-cli db:migrate:undo",
+        "seed": "npx sequelize-cli db:seed:all --debug"
     },
     "type": "module",
     "keywords": [],
@@ -33,3 +35,4 @@
         "sequelize-cli": "^6.6.0"
     }
 }
+
