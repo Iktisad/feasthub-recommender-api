@@ -15,7 +15,7 @@ export default (sequelize) => {
         },
         {
             sequelize,
-            modelName: "Cusines",
+            modelName: "cusines",
         }
     );
 
