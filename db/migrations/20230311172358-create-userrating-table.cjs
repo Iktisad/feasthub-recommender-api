@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('UsersVisits', {
+    await queryInterface.createTable('UsersRatings', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,16 +18,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true
       },
-      rating: {
-        type: Sequelize.INTEGER,
+      overall_rating: {
+        type: Sequelize.FLOAT,
         allowNull: true
       },
       food_rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: true
       },
       service_rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: true
       },
       createdAt: {

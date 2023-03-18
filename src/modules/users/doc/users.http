@@ -17,8 +17,8 @@ POST {{api}}/users/login
 Content-Type: application/json
 
 {
-    "idenfitier":"ao.doerer@gmail.com",
-    "password":"Denis@600"
+    "idenfitier":"user1001",
+    "password":"user1001"
 }
 
 

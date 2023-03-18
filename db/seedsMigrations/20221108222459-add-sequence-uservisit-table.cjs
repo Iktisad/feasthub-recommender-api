@@ -1,5 +1,5 @@
 'use strict';
-const tableName = 'UsersVisits';
+const tableName = 'UsersRatings';
 const sequenceColumn = 'id';
 
 module.exports = {

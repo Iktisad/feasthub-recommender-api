@@ -1,19 +1,43 @@
-export default (repository) => {
+import {
+    BadRequestException,
+    ConflictException,
+    UnauthorizedException,
+    NotFoundException,
+} from "../../utils/exceptions/http.exception.js";
+
+
+export default (cusineRepo, userRatingRepo) => {
     // User login
-    const createUser = async ({ body }) => {
-        // console.log(body);
-        const duplicate = await checkDuplication(body);
-        if (duplicate) throw ConflictException("Mail Already Exists.");
+    const createRating = async ({ body }) => {
+        const { placeID, food_rating, service_rating, userID } = body;
+        if(!placeID) throw BadRequestException("Place ID is required");
+        const cusine = await cusineRepo.findOne({ placeID });
+        if (!cusine) throw NotFoundException("Cusine not found");
+        if (!food_rating || !service_rating) throw BadRequestException("Invalid request");
 
-        const { password } = body;
-        const hash = await argon2.hash(password); //generate hash
-        body.password = hash;
+        const existingRating = await userRatingRepo.findOne({ query: { placeID, userID } });
+        
+        if (existingRating) {
+            existingRating.food_rating = food_rating;
+            existingRating.service_rating = service_rating;
+            existingRating.overall_rating = (food_rating + service_rating) / 2;
+            await userRatingRepo.save(existingRating);
+            return true;
+        }
+        
+        const overall_rating = (food_rating + service_rating) / 2;
 
-        await repository.create(body);
+        await userRatingRepo.create({
+            userID,
+            placeID,
+            overall_rating,
+            food_rating,
+            service_rating
+        });
         return true;
     };
 
     return Object.freeze({
-        
+        createRating
     });
 };

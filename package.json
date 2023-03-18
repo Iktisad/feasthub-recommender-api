@@ -6,6 +6,7 @@
     "scripts": {
         "start": "node server.js",
         "dev": "nodemon server.js",
+        "prepare": "yarn migrate && yarn seed && yarn seed-migrate",
         "seed-migrate": "npx sequelize-cli db:migrate --to=20221108222312-add-sequence-user-table.cjs --migrations-path=./db/seedsMigrations && npx sequelize-cli db:migrate --to=20221108222421-add-sequence-cusine-table.cjs --migrations-path=./db/seedsMigrations && npx sequelize-cli db:migrate --to=20221108222459-add-sequence-uservisit-table.cjs --migrations-path=./db/seedsMigrations",
         "migrate": "npx sequelize-cli db:migrate",
         "down": "npx sequelize-cli db:migrate:undo",

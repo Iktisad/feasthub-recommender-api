@@ -1,11 +1,10 @@
 export default (service) => {
     // User login
-    const login = async (req, res, next) => {
+    const createRating = async (req, res, next) => {
         try {
-            const data = await service.authenticate(req);
-
+            const data = await service.createRating(req);
             res.status(200).json({
-                message: "Authentication Successful.",
+                message: "Rating stored success.",
                 status: "success",
                 data,
             });
@@ -16,6 +15,6 @@ export default (service) => {
     };
 
     return Object.freeze({
-        login
+        createRating
     });
 };

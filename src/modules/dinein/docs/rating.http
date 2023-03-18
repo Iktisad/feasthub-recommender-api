@@ -1,0 +1,15 @@
+@token = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzkxMzYxNjMsInN1YiI6MSwidXNlcklEIjoiVTEwMDEiLCJleHAiOjE2NzkxNzkzNjN9.j5loUWcU7-4KU6OB4r73Tx2xZSGuFXZHs6090Ey3d67vFraNn8lEa6jo3a_ubULi17D0utDNEaWGbWWpBglmUVH2G4WkxWEUX_2yhNKNa9mWNxdG8ubKaWWGaG210MKJ8BebiygytVtOlXteWKnJKZxhDAlE4YOH4CaRJDQpSphXNM8LCzRfKxzvIZgoEI5S9478p-T2PUKs3EDBGmGTNC4-shqzx22lIs30Euaurzxyhh-xt7gAMBYidVCN_aI5UKxK_cZgq9AbqkU44U0WyxkGOrz2gxhsxLQzSLPl0K2gGoa-cif-KFhe4m18E4RMGYqUEo6VvarwoMj-JyIiCO6U77jHxknwsNiLE9AxNY-gVtO9Ag3eRczkrZWeiiAV1X6p25SFh9tA18G4o_WS3Y8SjdnIlIDjfxU-MHovj4lpFgQ_QGAcXda1gOJtelN5GUnmzPgUVUZTwaXs6msDNvN1EMtc1pGESxLGbNJMr5n0hrTfvhbEvY4gALhayTVYKjrTWWYb00-bIUHMmx0KkY57yJxsquABlBDh0h_3KEp6kwI2hCj4Q35AydmHYL9VcD4C_Fft3FIp7szP4ePRxg_PKFhREdIwRiqVthUQ_YfSEu6hyWa-oDzw8Dz8QbO0fb1_NgkfTJUeb6Y_o6W8KaVrAfCFgYT-SQJo6ONrwAU
+@api = http://localhost:8000/api
+
+### register a rating
+POST {{api}}/dinein/rating/add
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "userID": "U1138",
+    "placeID":"132001",
+    "food_rating": 3.2,
+    "service_rating": 5
+}
+

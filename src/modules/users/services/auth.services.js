@@ -70,10 +70,8 @@ export default (repository) => {
         const token = signJWT(
             {
                 iat: moment().unix(),
-                sub: user._id,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                email: user.email
+                sub: user.id,
+                userID: user.userID
             }
         );
         return token;
