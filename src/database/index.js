@@ -1,7 +1,9 @@
 import "dotenv/config";
+import { Sequelize } from "sequelize";
 import config from "./db.config.js";
-import { Sequelize } from "sequelize"
 
+import Cusine from "../modules/dinein/models/cusine.model.js";
+import UserRating from "../modules/dinein/models/user_rating.model.js";
 import Users from "../modules/users/user.model.js";
 
 const sequelize = new Sequelize(process.env.DB_CONNECTION_URI, config.development);
@@ -9,7 +11,9 @@ const sequelize = new Sequelize(process.env.DB_CONNECTION_URI, config.developmen
 const db = {}
 
 const models = [
-    Users
+    Users,
+    Cusine,
+    UserRating
 ]
 
 models.forEach((model) => {

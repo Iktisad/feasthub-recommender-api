@@ -10,15 +10,15 @@ export default (sequelize) => {
         {
             userID: DataTypes.INTEGER,
             placeID: DataTypes.INTEGER,
-            rating: DataTypes.INTEGER,
-            food_rating: DataTypes.INTEGER,
-            service_rating: DataTypes.INTEGER,
+            overall_rating: DataTypes.FLOAT,
+            food_rating: DataTypes.FLOAT,
+            service_rating: DataTypes.FLOAT,
             createdAt: DataTypes.DATE,
             updatedAt: DataTypes.DATE,
         },
         {
             sequelize,
-            modelName: "UsersVisits",
+            modelName: "UsersRatings",
         }
     );
 

@@ -12,12 +12,11 @@ const __dirname = path.dirname(__filename);
 
 const pathToKey = path.join(__dirname, "../../keys", "private.key");
 const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN;
 
 export const signJWT = (user) => {
     return jwt.sign({ ...user }, PRIV_KEY, {
-        expiresIn: moment().add(1, "minutes").unix(),
+        expiresIn: "12h",
         algorithm: "RS256",
     });
 };
