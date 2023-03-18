@@ -1,9 +1,9 @@
 import db from "../../../database/index.js";
 import { GenericRepository } from "../../../repository/generic.repository.js";
 
-const { UsersRatings } = db;
+const { users_ratings } = db;
 export class UserVisitRepository extends GenericRepository {
     constructor () {
-        super(UsersRatings);
+        super(users_ratings);
     }
 }

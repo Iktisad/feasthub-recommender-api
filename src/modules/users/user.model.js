@@ -21,7 +21,7 @@ export default (sequelize) => {
         },
         {
             sequelize,
-            modelName: "Users",
+            modelName: "users",
         }
     );
 
