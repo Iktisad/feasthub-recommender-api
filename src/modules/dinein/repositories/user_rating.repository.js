@@ -9,5 +9,6 @@ export class UserVisitRepository extends GenericRepository {
 
     async getRecommendation({ body }) {
         // this is where node js needs to talk to python engine
+        // a second comment
     }
 }
