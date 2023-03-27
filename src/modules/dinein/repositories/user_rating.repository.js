@@ -6,9 +6,4 @@ export class UserVisitRepository extends GenericRepository {
     constructor() {
         super(users_ratings);
     }
-
-    async getRecommendation({ body }) {
-        // this is where node js needs to talk to python engine
-        // a second comment
-    }
 }

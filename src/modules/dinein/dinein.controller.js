@@ -27,9 +27,9 @@ export default (service) => {
         }
     };
 
-    const getRecommendedRestaurants = async () => {
+    const getRecommendedRestaurants = async (req, res, next) => {
         try {
-            const data = await getRecommendation(req);
+            const data = await service.getRecommendation(req);
             res.status(200).json({
                 message: "Displaying results",
                 status: "success",
