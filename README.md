@@ -34,3 +34,6 @@ replica_db:
 -   username: postgres
 -   password: 00
 
+# TODOS (fixes)
+
+-   [ ] fix the getVisitedRestaurants, this requires fixing \ it is in src/dinein/dinein.service

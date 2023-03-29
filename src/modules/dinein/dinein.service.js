@@ -47,8 +47,17 @@ export default (cusineRepo, userRatingRepo) => {
 
         return JSON.parse(res.data.data);
     };
+
+    // !this needs to be fixed, it should return all relevant results
+    // !currently it is executing default query (returning all the results)
+    const getRestaurantsByUserId = async ({ id }) => {
+        // need to make a complex db query
+        const result = await userRatingRepo.find({ userID: id });
+        console.log(result);
+    };
     return Object.freeze({
         createRating,
         getRecommendation,
+        getRestaurantsByUserId,
     });
 };
