@@ -1,6 +1,6 @@
 export default (service) => {
     // User login
-    const createRating = async (req, res, next) => {
+    const registerRating = async (req, res, next) => {
         try {
             const data = await service.createRating(req);
             res.status(200).json({
@@ -14,7 +14,36 @@ export default (service) => {
         }
     };
 
+    const getVistedRestaurants = async (req, res, next) => {
+        try {
+            const {params} = req
+            const data = await service.getRestaurantsByUserId(params);
+            res.status(200).json({
+                message: "Displaying results",
+                status: "success",
+                data,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    const getRecommendedRestaurants = async (req, res, next) => {
+        try {
+            const data = await service.getRecommendation(req);
+            res.status(200).json({
+                message: "Displaying results",
+                status: "success",
+                data,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
+
     return Object.freeze({
-        createRating
+        registerRating,
+        getVistedRestaurants,
+        getRecommendedRestaurants,
     });
 };

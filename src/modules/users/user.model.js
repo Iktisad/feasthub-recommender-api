@@ -2,8 +2,7 @@ import { Model, DataTypes } from "sequelize";
 
 export default (sequelize) => {
     class Users extends Model {
-        static associate(models) {
-        }
+        static associate(models) {}
     }
 
     Users.init(
@@ -26,4 +25,4 @@ export default (sequelize) => {
     );
 
     return Users;
-}
+};

@@ -1,5 +1,5 @@
-import { Op } from 'sequelize';
-import db from '../database/index.js';
+import { Op } from "sequelize";
+import db from "../database/index.js";
 
 export class GenericRepository {
     constructor(model) {
@@ -9,7 +9,14 @@ export class GenericRepository {
         return await this.model.count();
     };
 
-    find = async ({ query = {}, include, attributes, start, limit, sort = { createdAt: 'ASC' } }) => {
+    find = async ({
+        query = {},
+        include,
+        attributes,
+        start,
+        limit,
+        sort = { createdAt: "ASC" },
+    }) => {
         // const order = Object.entries(sort).flat()
         const result = await this.model.findAll({
             where: query,
@@ -19,36 +26,33 @@ export class GenericRepository {
             limit,
             // order
         });
-        if(result.length) {
-            return result.map(
-                (item) => item.get({ plain: true })
-            )
+        if (result.length > 0) {
+            return result.map((item) => item.get({ plain: true }));
         }
-        return [] 
+        return [];
     };
 
-    findOne = async ({query = {}, attributes,  sort}) => {
+    findOne = async ({ query = {}, attributes, sort }) => {
         // const order = sort.Object.entries(sort).flat()
         const result = await this.model.findOne({
             where: query,
             attributes,
-            order: sort
+            order: sort,
         });
-        if(result) {
-            return result.get({ plain: true })
+        if (result) {
+            return result.get({ plain: true });
         }
-        return null
+        return null;
     };
 
     findById = async (id) => {
-        const result = await this.model.findOne(
-            {
-                where: { id },
-            });
-        if(result) {
-            return result.get({ plain: true })
+        const result = await this.model.findOne({
+            where: { id },
+        });
+        if (result) {
+            return result.get({ plain: true });
         }
-        return null
+        return null;
     };
 
     create = async (payload) => {
@@ -59,10 +63,10 @@ export class GenericRepository {
         return await this.model.bulkCreate(payloads);
     };
 
-    update = async ({query = {}, payload}) => {
+    update = async ({ query = {}, payload }) => {
         return await this.model.update(payload, {
             where: query,
-            returning: true
+            returning: true,
         });
     };
 
@@ -71,50 +75,61 @@ export class GenericRepository {
             // update
             const result = await this.model.update(data, {
                 where: { id: data.id },
-                returning: true
+                returning: true,
             });
-            if(result.length > 1) {
-                return result[1][0]
+            if (result.length > 1) {
+                return result[1][0];
             }
-            return null
+            return null;
         } else {
             //create
             return await this.model.create(data);
         }
-    }
+    };
 
-    findByIdAndUpdate = async ({id, payload}) => {
+    findByIdAndUpdate = async ({ id, payload }) => {
         const result = await this.model.update(payload, {
-            where: { id }
+            where: { id },
         });
-        if(!result.length || result[0] !== 1) {
-            return null
+        if (!result.length || result[0] !== 1) {
+            return null;
         }
-        return await this.findById(id)
+        return await this.findById(id);
     };
 
-    remove = async ({id}) => {
+    remove = async ({ id }) => {
         return await this.model.destroy({
-            where: { id }
+            where: { id },
         });
     };
 
-    findAndPopulate = async ({ query = {}, include, attributes,start, limit, sort = { createdAt: 'ASC' } }) => {
+    findAndPopulate = async ({
+        query = {},
+        include,
+        attributes,
+        start,
+        limit,
+        sort = { createdAt: "ASC" },
+    }) => {
         let includeQuery = [];
         if (include) {
             includeQuery = include.map((item) => {
                 return {
-                    model: db[ item.model ],
+                    model: db[item.model],
                     as: item.as,
                     attributes: item.attributes ? item.attributes : {},
-                    include: item.include ? item.include.map((item) => {
-                        return {
-                            model: db[ item.model ],
-                            as: item.as,
-                            attributes: item.attributes ? item.attributes : {},
-                        }
-                    }) : []
-                }
+                    include: item.include
+                        ? item.include.map((item) => {
+                              return {
+                                  model: db[item.model],
+                                  as: item.as,
+                                  attributes: item.attributes
+                                      ? item.attributes
+                                      : {},
+                              };
+                          })
+                        : [],
+                };
             });
         }
         const result = await this.model.findAll({
@@ -122,21 +137,19 @@ export class GenericRepository {
             include: includeQuery,
             attributes,
             offset: start,
-            limit
+            limit,
         });
 
         if (result.length) {
-            return result.map(
-                (item) => item.get({ plain: true })
-            )
+            return result.map((item) => item.get({ plain: true }));
         }
-        return null
+        return null;
     };
 
     sql = async (sql) => {
         // raw query
         return await db.sequelize.query(sql, {
-            type: db.sequelize.QueryTypes.SELECT
+            type: db.sequelize.QueryTypes.SELECT,
         });
     };
 }
