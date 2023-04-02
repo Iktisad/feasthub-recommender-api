@@ -54,8 +54,14 @@ export default (cusineRepo, userRatingRepo) => {
 
     const getRestaurantsByUserId = async ({ id }) => {
         // need to make a complex db query
-        const result = await userRatingRepo.find({
+        const result = await userRatingRepo.findAndPopulate({
             query: { userID: id },
+            include: [
+                {
+                    model: "cusines",
+                    as: "most_visited",
+                },
+            ],
             sort: [["overall_rating", "DESC"]],
         });
         if (result.length == 0) throw NotFoundException("User has no data!");
