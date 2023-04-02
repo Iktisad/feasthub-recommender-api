@@ -42,9 +42,23 @@ export default (service) => {
         }
     };
 
+    const getData = async (req, res, next) => {
+        try {
+            const data = await service.getData(req);
+            res.status(200).json({
+                message: "Displaying results",
+                status: "success",
+                data,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
+
     return Object.freeze({
         registerRating,
         getVistedRestaurants,
         getRecommendedRestaurants,
+        getData
     });
 };
