@@ -48,11 +48,13 @@ export default (cusineRepo, userRatingRepo) => {
         return JSON.parse(res.data.data);
     };
 
-    // !this needs to be fixed, it should return all relevant results
-    // !currently it is executing default query (returning all the results)
+    // !this needs to be fixed, need to sort by rating value
     const getRestaurantsByUserId = async ({ id }) => {
         // need to make a complex db query
-        const result = await userRatingRepo.find({ userID: id });
+        const result = await userRatingRepo.find({
+            query: { userID: id },
+            sort: [["overall_rating", "DESC"]],
+        });
         console.log(result);
     };
     return Object.freeze({
