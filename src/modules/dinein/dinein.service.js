@@ -56,7 +56,7 @@ export default (cusineRepo, userRatingRepo) => {
     // !currently it is executing default query (returning all the results)
     const getRestaurantsByUserId = async ({ id }) => {
         // need to make a complex db query
-        const result = await userRatingRepo.find({ query: {userID: id} });
+        const result = await userRatingRepo.find({ query: {userID: id}, sort:[["overall_rating", "DESC"]]});
         if(result.length==0)
             throw NotFoundException("User has no data!");
         return result;

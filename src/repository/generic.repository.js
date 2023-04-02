@@ -15,7 +15,7 @@ export class GenericRepository {
         attributes,
         start,
         limit,
-        sort = { createdAt: "ASC" },
+        sort,
     }) => {
         // const order = Object.entries(sort).flat()
         const result = await this.model.findAll({
@@ -24,7 +24,7 @@ export class GenericRepository {
             attributes,
             offset: start,
             limit,
-            // order
+            order: sort
         });
         if (result.length > 0) {
             return result.map((item) => item.get({ plain: true }));
