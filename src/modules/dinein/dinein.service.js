@@ -59,7 +59,8 @@ export default (cusineRepo, userRatingRepo) => {
             include: [
                 {
                     model: "cusines",
-                    as: "most_visited",
+                    as: "cusine",
+                    attributes: ["rcuisine"],
                 },
             ],
             sort: [["overall_rating", "DESC"]],
@@ -68,19 +69,19 @@ export default (cusineRepo, userRatingRepo) => {
         return result;
     };
 
-    const getData = async ({ }) => {
+    const getData = async ({}) => {
         return userRatingRepo.findAndPopulate({
             include: [
                 {
-                    model: 'users',
-                    as: 'user',
+                    model: "users",
+                    as: "user",
                 },
                 {
-                    model: 'cusines',
-                    as: 'cusine',
-                }
+                    model: "cusines",
+                    as: "cusine",
+                },
             ],
-        })
+        });
         // return await cusineRepo.findAndPopulate({
         //     include: [
         //         {
@@ -88,7 +89,7 @@ export default (cusineRepo, userRatingRepo) => {
         //         }
         //     ]
         // })
-    }
+    };
 
     return Object.freeze({
         createRating,
