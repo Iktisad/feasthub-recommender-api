@@ -22,7 +22,9 @@ export default (module) => {
         .post(
             passport.authenticate("jwt", { session: false }),
             module.registerRating
-        );
+    );
+    
+    router.get('/get-data', module.getData);
 
     return router;
 };
