@@ -2,7 +2,7 @@
 import "dotenv/config";
 import express from "express";
 import passport from "passport";
-
+import cors from 'cors';
 import configurePassport from "./config/passport.config.js";
 
 import { errlogger } from "./middlewares/logger/logger.js";
@@ -13,6 +13,7 @@ export default (api) => {
     app.use(passport.initialize());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
+    app.use(cors());
     app.use("/api", api);
     app.use(errlogger);
     return app;
