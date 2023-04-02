@@ -1,14 +1,16 @@
 import { Model, DataTypes } from "sequelize";
 
 export default (sequelize) => {
-    class UsersVisits extends Model {
+    class UsersRatings extends Model {
         static associate(models) {
+            this.belongsTo(models.users, { foreignKey: "userID", targetKey: "userID" });
+            this.belongsTo(models.cusines, { foreignKey: "placeID", targetKey: "placeID" });
         }
     }
 
-    UsersVisits.init(
+    UsersRatings.init(
         {
-            userID: DataTypes.INTEGER,
+            userID: DataTypes.STRING,
             placeID: DataTypes.INTEGER,
             overall_rating: DataTypes.FLOAT,
             food_rating: DataTypes.FLOAT,
@@ -22,5 +24,5 @@ export default (sequelize) => {
         }
     );
 
-    return UsersVisits;
+    return UsersRatings;
 }

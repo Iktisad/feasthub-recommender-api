@@ -61,9 +61,33 @@ export default (cusineRepo, userRatingRepo) => {
             throw NotFoundException("User has no data!");
         return result;
     };
+
+    const getData = async ({ }) => {
+        return userRatingRepo.findAndPopulate({
+            include: [
+                {
+                    model: 'users',
+                    as: 'user',
+                },
+                {
+                    model: 'cusines',
+                    as: 'cusine',
+                }
+            ],
+        })
+        // return await cusineRepo.findAndPopulate({
+        //     include: [
+        //         {
+        //             model: "users_ratings"
+        //         }
+        //     ]
+        // })
+    }
+
     return Object.freeze({
         createRating,
         getRecommendation,
         getRestaurantsByUserId,
+        getData,
     });
 };
