@@ -17,6 +17,7 @@ export default (service) => {
     const getVistedRestaurants = async (req, res, next) => {
         try {
             const {params} = req
+            // console.log(params.id);
             const data = await service.getRestaurantsByUserId(params);
             res.status(200).json({
                 message: "Displaying results",

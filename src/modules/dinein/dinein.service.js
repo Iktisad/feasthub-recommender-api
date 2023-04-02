@@ -44,18 +44,22 @@ export default (cusineRepo, userRatingRepo) => {
         // this is where node js needs to talk to python engine which is also a rest API
         // console.log(val);
         let res = await axios.get("http://127.0.0.1:3000/" + params.id);
+        const data = JSON.parse(res.data.data);
 
+        if (data.length == 0) {
+            throw NotFoundException("User has no data!");
+        }
         return JSON.parse(res.data.data);
     };
 
-    // !this needs to be fixed, need to sort by rating value
     const getRestaurantsByUserId = async ({ id }) => {
         // need to make a complex db query
         const result = await userRatingRepo.find({
             query: { userID: id },
             sort: [["overall_rating", "DESC"]],
         });
-        console.log(result);
+        if (result.length == 0) throw NotFoundException("User has no data!");
+        return result;
     };
     return Object.freeze({
         createRating,

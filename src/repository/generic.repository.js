@@ -9,7 +9,14 @@ export class GenericRepository {
         return await this.model.count();
     };
 
-    find = async ({ query = {}, include, attributes, start, limit, sort }) => {
+    find = async ({
+        query = {},
+        include,
+        attributes,
+        start,
+        limit,
+        sort,
+    }) => {
         // const order = Object.entries(sort).flat()
         const result = await this.model.findAll({
             where: query,
@@ -17,8 +24,7 @@ export class GenericRepository {
             attributes,
             offset: start,
             limit,
-            order: sort,
-            // sort,
+            order: sort
         });
         if (result.length > 0) {
             return result.map((item) => item.get({ plain: true }));
