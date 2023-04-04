@@ -44,7 +44,7 @@ export default (cusineRepo, userRatingRepo) => {
         // this is where node js needs to talk to python engine which is also a rest API
         // console.log(val);
         let res = await axios.get("http://127.0.0.1:3000/" + params.id);
-        const data = JSON.parse(res.data.data);
+        const data = res.data.data;
 
         if (data.length == 0) {
             throw NotFoundException("User has no data!");
@@ -65,7 +65,7 @@ export default (cusineRepo, userRatingRepo) => {
             ],
             sort: [["overall_rating", "DESC"]],
         });
-        if (result.length == 0) throw NotFoundException("User has no data!");
+        if (result == null) throw NotFoundException("User has no data!");
         return result;
     };
 
