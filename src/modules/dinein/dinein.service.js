@@ -49,7 +49,7 @@ export default (cusineRepo, userRatingRepo) => {
         if (data.length == 0) {
             throw NotFoundException("User has no data!");
         }
-        return JSON.parse(res.data.data);
+        return JSON.parse(data);
     };
 
     const getRestaurantsByUserId = async ({ id }) => {
