@@ -44,12 +44,12 @@ export default (cusineRepo, userRatingRepo) => {
         // this is where node js needs to talk to python engine which is also a rest API
         // console.log(val);
         let res = await axios.get("http://127.0.0.1:3000/" + params.id);
-        const data = res.data.data;
+        const data = JSON.parse(res.data.data);
 
-        if (data.length == 0) {
+        if (data == null) {
             throw NotFoundException("User has no data!");
         }
-        return JSON.parse(data);
+        return data;
     };
 
     const getRestaurantsByUserId = async ({ id }) => {
